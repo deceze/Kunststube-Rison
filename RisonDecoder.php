@@ -2,24 +2,10 @@
 
 namespace Kunststube\Rison;
 
-
-class RisonParseErrorException extends \RuntimeException {
-
-    protected $rison;
-
-    public function __construct($rison, $message, $code = 0, Exception $previous = null) {
-        $this->rison = $rison;
-        parent::__construct($message, $code, $previous);
-    }
-
-    public function getRison() {
-        return $this->rison;
-    }
-
-}
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'RisonParseErrorException.php';
 
 
-class Rison {
+class RisonDecoder {
 
     protected $rison  = null,
               $length = 0,
@@ -51,9 +37,7 @@ class Rison {
             "'" => array($this, 'parseStringLiteral'),
             '-' => array($this, 'parseNumber')
         ];
-        foreach (range(0, 9) as $i) {
-            $this->tokens[$i] = $this->tokens['-'];
-        }
+        $this->tokens += array_fill_keys(range(0, 9), $this->tokens['-']);
 
         $this->bangs = [
             't' => true,
@@ -71,7 +55,7 @@ class Rison {
 
     protected function parseValue() {
         $c = $this->next();
-        if ($this->eof) {
+        if ($c === false) {
             $this->parseError('Unexpected end');
         }
 
@@ -90,7 +74,7 @@ class Rison {
 
     protected function parseBang() {
         $c = $this->next();
-        if ($this->eof) {
+        if ($c === false) {
             $this->parseError('! at end of string');
         }
         if (!array_key_exists($c, $this->bangs)) {
@@ -140,7 +124,7 @@ class Rison {
         $array = [];
 
         while (($c = $this->next()) !== ')') {
-            if ($this->eof) {
+            if ($c === false) {
                 $this->parseError('Unmatched !(');
             }
             if ($array) {
@@ -167,7 +151,7 @@ class Rison {
         $string = null;
 
         while (($c = $this->next()) !== "'") {
-            if ($this->eof) {
+            if ($c === false) {
                 $this->parseError('Unmatched "\'"');
             }
             if ($c === '!') {
@@ -196,7 +180,7 @@ class Rison {
 
         do {
             $c = $this->next();
-            if ($this->eof) {
+            if ($c === false) {
                 break;
             }
 
@@ -226,7 +210,7 @@ class Rison {
         if (!is_numeric($number)) {
             $this->parseError("Invalid number '$number'");
         }
-        
+
         if (preg_match('/^-?\d+$/', $number)) {
             return (int)$number;
         } else {
