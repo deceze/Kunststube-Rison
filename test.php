@@ -22,8 +22,27 @@ $tests = [
 	'-a'
 ];
 
+// foreach ($tests as $test) {
+// 	echo $test, PHP_EOL;
+// 	var_dump(Rison\rison_decode($test));
+// 	echo PHP_EOL;
+// }
+
+
+$tests = [
+	'Foo',
+	true,
+	false,
+	null,
+	'Bar baz',
+	['foo', 'bar', 'baz bam'],
+	new stdClass,
+	['blah' => 'bim', 'bom', 'foo'],
+	['meh', 'das' => 'beh', 'obj' => new stdClass]
+];
+
 foreach ($tests as $test) {
-	echo $test, PHP_EOL;
-	var_dump(Rison\rison_decode($test));
+	var_dump($test);
+	var_dump(Rison\rison_encode($test));
 	echo PHP_EOL;
 }

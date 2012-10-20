@@ -2,10 +2,11 @@
 
 namespace Kunststube\Rison;
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Rison.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'RisonParseErrorException.php';
 
 
-class RisonDecoder {
+class RisonDecoder extends Rison {
 
     protected $rison  = null,
               $length = 0,
@@ -13,8 +14,6 @@ class RisonDecoder {
               $eof    = false;
 
     protected $whitespace = '',
-              $notIdchar  = " '!:(),*@$",
-              $notIdstart = '-0123456789',
               $idRegex    = null,
               $tokens     = [],
               $bangs      = [];
