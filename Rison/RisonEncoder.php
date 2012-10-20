@@ -78,7 +78,7 @@ class RisonEncoder extends Rison {
 
     protected function encodeArray(array $array) {
         $keys = array_keys($array);
-        $isArray = range(0, count($keys) - 1) == $keys;
+        $isArray = range(0, count($keys) - 1) === $keys;
         if (!$isArray) {
             return $this->encodeObject($array);
         }
