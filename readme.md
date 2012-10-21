@@ -3,6 +3,8 @@ Kunststube\Rison encoder and decoder for PHP
 
 Rison is a compact data format optimized for URIs, a slight variation of JSON. See http://mjtemplate.org/examples/rison.html for more information and other implementations.
 
+Requires PHP 5.4 (mostly because of the simplified array syntax).
+
 Usage
 -----
 
