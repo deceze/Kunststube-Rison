@@ -166,8 +166,8 @@ class RisonDecoder extends Rison {
     }
 
     protected function parseNumber() {
-        $start          = --$this->index;
-        $length         = 0;
+        $i              = $this->index;
+        $start          = $i - 1;
         $state          = 'int';
         $permittedSigns = '-';
         
@@ -178,12 +178,10 @@ class RisonDecoder extends Rison {
         ];
 
         do {
-            $c = $this->next();
+            $c = substr($this->rison, $i++, 1);
             if ($c === false) {
                 break;
             }
-
-            $length++;
 
             if (ctype_digit($c)) {
                 continue;
@@ -201,7 +199,9 @@ class RisonDecoder extends Rison {
             }
         } while ($state);
 
-        $number = substr($this->rison, $start, $length);
+        $this->index = --$i;
+
+        $number = substr($this->rison, $start, $i - $start);
         if ($number === '-') {
             $this->parseError('Invalid number "-"');
         }
