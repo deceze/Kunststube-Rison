@@ -10,29 +10,51 @@ Usage
 
 ### Object oriented ###
 
-    require_once 'Rison/RisonDecoder.php';
+```php
+require_once 'Rison/RisonDecoder.php';
 
-    use Kunststube\Rison;
+use Kunststube\Rison;
 
-    $rison = '(baz:!(1,1.2e41,0.42,(a:!t,0:!f,1:!n)),foo:bar)';
+// decoding
+try {
+    $rison   = '(baz:!(1,1.2e41,0.42,(a:!t,0:!f,1:!n)),foo:bar)';
+    $decoder = new Rison\RisonDecoder($rison);
+    $data    = $decoder->decode();
 
-    try {
-        $decoder = new Rison\RisonDecoder($rison);
-        $data = $decoder->decode();
-        var_dump($data);
-    } catch (Rison\RisonParseErrorException $e) {
-        echo $e->getMessage(), ' in string: ', $e->getRison();
-    } catch (InvalidArgumentException $e) {
-        echo $e->getMessage();
-    }
+    var_dump($data);
+} catch (Rison\RisonParseErrorException $e) {
+    echo $e->getMessage(), ' in string: ', $e->getRison();
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage();
+}
+
+// encoding
+try {
+    $data    = array('foo', 'bar' => array('baz'));
+    $encoder = new Rison\RisonEncoder($data);
+    $rison   = $encoder->encode();
+
+    var_dump($rison);
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage();
+}
+```
 
 ### Procedural/convenience wrapper ###
 
-    require_once 'Rison/rison_functions.php';
+```php
+require_once 'Rison/rison_functions.php';
 
-    $rison = '(baz:!(1,1.2e41,0.42,(a:!t,0:!f,1:!n)),foo:bar)';
-    $data  = Kunststube\Rison\rison_decode($rison);
-    var_dump($data);
+// decoding
+$rison = '(baz:!(1,1.2e41,0.42,(a:!t,0:!f,1:!n)),foo:bar)';
+$data  = Kunststube\Rison\rison_decode($rison);
+var_dump($data);
+
+// encoding
+$data  = array('foo', 'bar' => array('baz'));
+$rison = Kunststube\Rison\rison_encode($data);
+var_dump($rison);
+```
 
 Information
 -----------
