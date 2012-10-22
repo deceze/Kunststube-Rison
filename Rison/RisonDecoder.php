@@ -49,7 +49,11 @@ class RisonDecoder extends Rison {
     }
 
     public function decode() {
-        return $this->parseValue();
+        $value = $this->parseValue();
+        if ($this->next() !== false) {
+            $this->parseError('Invalid syntax');
+        }
+        return $value;
     }
 
     protected function parseValue() {
@@ -221,7 +225,7 @@ class RisonDecoder extends Rison {
         do {
             if ($this->index >= $this->length) {
                 $this->eof = true;
-                return;
+                return false;
             }
             $c = $this->rison[$this->index++];
         } while (strpos($this->whitespace, $c) !== false);

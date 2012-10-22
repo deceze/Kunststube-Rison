@@ -37,7 +37,7 @@ Usage
 Information
 -----------
 
-Version: 0.9  
+Version: 0.91  
 Author:  David Zentgraf  
 Contact: rison@kunststube.net  
 License: Public Domain
