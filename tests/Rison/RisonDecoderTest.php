@@ -282,8 +282,9 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException Kunststube\Rison\RisonParseErrorException
 	 */
-	public function textTwoLiterals() {
-		R\rison_decode('foo bar');
+	public function testTwoLiterals() {
+		$r = new R\RisonDecoder('foo bar');
+		$r->decode();
 	}
 
 }
