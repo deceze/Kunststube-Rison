@@ -2,8 +2,8 @@
 
 use Kunststube\Rison as R;
 
-require_once 'Rison/RisonDecoder.php';
-require_once 'Rison/rison_functions.php';
+require_once 'RisonDecoder.php';
+require_once 'rison_functions.php';
 
 
 class RisonDecoderTest extends PHPUnit_Framework_TestCase {

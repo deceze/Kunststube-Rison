@@ -56,6 +56,11 @@ $rison = Kunststube\Rison\rison_encode($data);
 var_dump($rison);
 ```
 
+PSR-0
+-----
+
+The repository is organized so its contents can be dumped into a folder `Kunststube/Rison/` and the naming be PSR-0 compliant.
+
 Information
 -----------
 

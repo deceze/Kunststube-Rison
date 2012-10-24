@@ -2,7 +2,7 @@
 
 use Kunststube\Rison as R;
 
-require_once 'Rison/RisonEncoder.php';
+require_once 'RisonEncoder.php';
 
 
 class RisonEncoderTest extends PHPUnit_Framework_TestCase {
