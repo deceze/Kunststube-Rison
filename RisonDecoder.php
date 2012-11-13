@@ -15,8 +15,8 @@ class RisonDecoder extends Rison {
 
     protected $whitespace = '',
               $idRegex    = null,
-              $tokens     = [],
-              $bangs      = [];
+              $tokens     = array(),
+              $bangs      = array();
 
     public function __construct($rison) {
         $this->rison  = $rison;
@@ -30,20 +30,20 @@ class RisonDecoder extends Rison {
     }
 
     protected function init() {
-        $this->tokens = [
+        $this->tokens = array(
             '!' => array($this, 'parseBang'),
             '(' => array($this, 'parseObject'),
             "'" => array($this, 'parseStringLiteral'),
             '-' => array($this, 'parseNumber')
-        ];
+        );
         $this->tokens += array_fill_keys(range(0, 9), $this->tokens['-']);
 
-        $this->bangs = [
+        $this->bangs = array(
             't' => true,
             'f' => false,
             'n' => null,
             '(' => array($this, 'parseArray')
-        ];
+        );
 
         $this->idRegex = "/[^{$this->notIdstart}{$this->notIdchar}][^{$this->notIdchar}]*/";
     }
@@ -90,7 +90,7 @@ class RisonDecoder extends Rison {
     }
 
     protected function parseObject() {
-        $obj = [];
+        $obj = array();
 
         while (($c = $this->next()) !== ')') {
             if ($obj) {
@@ -124,7 +124,7 @@ class RisonDecoder extends Rison {
     }
 
     protected function parseArray() {
-        $array = [];
+        $array = array();
 
         while (($c = $this->next()) !== ')') {
             if ($c === false) {
@@ -175,11 +175,11 @@ class RisonDecoder extends Rison {
         $state          = 'int';
         $permittedSigns = '-';
         
-        static $transitions = [
+        static $transitions = array(
             'int+.'  => 'frac',
             'int+e'  => 'exp',
             'frac+e' => 'exp'
-        ];
+        );
 
         do {
             $c = substr($this->rison, $i++, 1);

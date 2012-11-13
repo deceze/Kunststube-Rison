@@ -18,14 +18,14 @@ class RisonEncoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSimpleObject() {
-		$php   = ['a' => 0, 'b' => 1];
+		$php   = array('a' => 0, 'b' => 1);
 		$rison = '(a:0,b:1)';
 		
 		$this->assertEquals($rison, R\rison_encode($php));
 	}
 
 	public function testComplexObject() {
-		$php   = ['a' => 0, 'b' => 'foo', 'c' => '23skidoo'];
+		$php   = array('a' => 0, 'b' => 'foo', 'c' => '23skidoo');
 		$rison = "(a:0,b:foo,c:'23skidoo')";
 
 		$this->assertEquals($rison, R\rison_encode($php));
@@ -116,28 +116,28 @@ class RisonEncoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyObject() {
-		$php   = [];
+		$php   = array();
 		$rison = '()';
 
 		$this->assertEquals($rison, R\rison_encode($php));
 	}
 
 	public function testSingleObject() {
-		$php   = ['a' => 0];
+		$php   = array('a' => 0);
 		$rison = '(a:0)';
 
 		$this->assertEquals($rison, R\rison_encode($php));
 	}
 
 	public function testComplexQuoteObject() {
-		$php   = ['id' => null, 'type' => '/common/document'];
+		$php   = array('id' => null, 'type' => '/common/document');
 		$rison = '(id:!n,type:/common/document)';
 
 		$this->assertEquals($rison, R\rison_encode($php));
 	}
 
 	public function testPrimitiveTypeArray() {
-		$php   = [true, false, null, ''];
+		$php   = array(true, false, null, '');
 		$rison = "!(!t,!f,!n,'')";
 
 		$this->assertEquals($rison, R\rison_encode($php));

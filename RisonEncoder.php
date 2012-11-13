@@ -9,7 +9,7 @@ class RisonEncoder extends Rison {
 
     protected $value = null;
 
-    protected $encoders = [];
+    protected $encoders = array();
 
     public function __construct($value) {
         $this->value = $value;
@@ -17,7 +17,7 @@ class RisonEncoder extends Rison {
     }
 
     protected function init() {
-        $this->encoders = [
+        $this->encoders = array(
             'boolean'  => array($this, 'encodeBoolean'),
             'integer'  => array($this, 'encodeInteger'),
             'double'   => array($this, 'encodeDouble'),
@@ -26,7 +26,7 @@ class RisonEncoder extends Rison {
             'object'   => array($this, 'encodeObject'),
             'resource' => array($this, 'encodeResource'),
             'null'     => array($this, 'encodeNull'),
-        ];
+        );
 
         $this->idOkRegex = "/^[^{$this->notIdstart}{$this->notIdchar}][^{$this->notIdchar}]*\$/";
     }
@@ -88,7 +88,7 @@ class RisonEncoder extends Rison {
     protected function encodeObject($object) {
         $object = (array)$object;
         ksort($object);
-        $encoded = [];
+        $encoded = array();
 
         foreach ($object as $key => $value) {
             $encoded[] = $this->encodeValue($key) . ':' . $this->encodeValue($value);

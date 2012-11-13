@@ -19,7 +19,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSimpleObject() {
-		$php   = ['a' => 0, 'b' => 1];
+		$php   = array('a' => 0, 'b' => 1);
 		$rison = '(a:0,b:1)';
 		$json  = '{"a":0,"b":1}';
 		
@@ -28,7 +28,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testComplexObject() {
-		$php   = ['a' => 0, 'b' => 'foo', 'c' => '23skidoo'];
+		$php   = array('a' => 0, 'b' => 'foo', 'c' => '23skidoo');
 		$rison = "(a:0,b:foo,c:'23skidoo')";
 		$json  = '{"a":0,"b":"foo","c":"23skidoo"}';
 
@@ -145,7 +145,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyObject() {
-		$php   = [];
+		$php   = array();
 		$rison = '()';
 		$json  = '{}';
 
@@ -154,7 +154,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSingleObject() {
-		$php   = ['a' => 0];
+		$php   = array('a' => 0);
 		$rison = '(a:0)';
 		$json  = '{"a":0}';
 
@@ -163,7 +163,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testComplexQuoteObject() {
-		$php   = ['id' => null, 'type' => '/common/document'];
+		$php   = array('id' => null, 'type' => '/common/document');
 		$rison = '(id:!n,type:/common/document)';
 		$json  = '{"id":null,"type":"/common/document"}';
 
@@ -172,7 +172,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyArray() {
-		$php   = [];
+		$php   = array();
 		$rison = '!()';
 		$json  = '[]';
 
@@ -181,7 +181,7 @@ class RisonDecoderTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testPrimitiveTypeArray() {
-		$php   = [true, false, null, ''];
+		$php   = array(true, false, null, '');
 		$rison = "!(!t,!f,!n,'')";
 		$json  = '[true,false,null,""]';
 
