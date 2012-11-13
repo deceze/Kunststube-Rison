@@ -1,0 +1,20 @@
+{
+    "name": "kunststube/rison",
+    "description": "A Rison encoder and decoder for PHP.",
+    "keywords": ["rison", "encode", "decode"],
+    "homepage": "https://github.com/deceze/Kunststube-Rison",
+    "authors": [
+        {
+            "name": "David Zentgraf",
+            "email": "rison@kunststube.net",
+            "homepage": "http://kunststube.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Kunststube\\Rison": "" }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "target-dir": "Kunststube/Rison"
+}
